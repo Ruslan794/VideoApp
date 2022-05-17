@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    tools:context=".presentation.watchVideoScreen.WatchVideoFragment"
+    android:background="@color/grey_background">
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/back_button"
+      android:layout_marginTop="5dp"
+      android:layout_width="150dp"
+      android:layout_height="50dp"
+      android:text="@string/back_button_text" />
+
+  <com.google.android.exoplayer2.ui.StyledPlayerView
+      android:id="@+id/player"
+      android:layout_width="match_parent"
+      android:layout_height="250dp"
+      android:layout_marginTop="10dp"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
