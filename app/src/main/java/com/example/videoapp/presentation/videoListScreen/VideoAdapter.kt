@@ -35,17 +35,18 @@ class VideoAdapter(
     class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
 
+        private val imageUrl: String =
+            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/"
+
         private val videoItemContainer: LinearLayoutCompat =
             itemView.findViewById(R.id.video_item_container)
         private val thumb: ImageView = itemView.findViewById(R.id.thumb)
         private val title: TextView = itemView.findViewById(R.id.title)
 
         fun bind(videoItem: Video, clickListener: VideoClickListener) {
-            thumb.load("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/${videoItem.thumbSource}")
+            thumb.load(imageUrl + videoItem.thumbSource)
             title.text = videoItem.name
             videoItemContainer.setOnClickListener { clickListener.onClick(videoItem) }
         }
     }
 }
-
-// hchgv
