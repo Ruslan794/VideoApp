@@ -44,6 +44,6 @@ class WatchVideoViewModel(
 
     fun onBackButtonClicked(navController: NavController, player: ExoPlayer) {
         player.stop()
-        navController.navigate(R.id.action_watchVideoFragment_to_videoListFragment)
+        navController.popBackStack()
     }
 }
