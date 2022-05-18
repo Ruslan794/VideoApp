@@ -28,7 +28,7 @@ class VideoListViewModel(
     }
 
     private suspend fun getVideoList() {
-        withContext(Dispatchers.IO){getVideoListUseCase.execute()}.let {
+        withContext(Dispatchers.IO) { getVideoListUseCase.execute() }.let {
             if (it != null) _videoList.value = it
         }
     }

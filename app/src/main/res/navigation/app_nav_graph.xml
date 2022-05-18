@@ -19,8 +19,5 @@
         android:name="com.example.videoapp.presentation.watchVideoScreen.WatchVideoFragment"
         android:label="fragment_watch_video"
         tools:layout="@layout/fragment_watch_video" >
-        <action
-            android:id="@+id/action_watchVideoFragment_to_videoListFragment"
-            app:destination="@id/videoListFragment" />
     </fragment>
 </navigation>

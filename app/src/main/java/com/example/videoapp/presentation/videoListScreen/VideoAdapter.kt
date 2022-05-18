@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.domain.models.Video
@@ -28,9 +27,10 @@ class VideoAdapter(
         ViewHolder(inflater.inflate(R.layout.video_item_view_holder, parent, false))
 
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position), clickListener)
-
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener { clickListener.onClick(getItem(position)) }
+        holder.bind(getItem(position))
+    }
 
     class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
@@ -38,15 +38,12 @@ class VideoAdapter(
         private val imageUrl: String =
             "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/"
 
-        private val videoItemContainer: LinearLayoutCompat =
-            itemView.findViewById(R.id.video_item_container)
         private val thumb: ImageView = itemView.findViewById(R.id.thumb)
         private val title: TextView = itemView.findViewById(R.id.title)
 
-        fun bind(videoItem: Video, clickListener: VideoClickListener) {
+        fun bind(videoItem: Video) {
             thumb.load(imageUrl + videoItem.thumbSource)
             title.text = videoItem.name
-            videoItemContainer.setOnClickListener { clickListener.onClick(videoItem) }
         }
     }
 }
