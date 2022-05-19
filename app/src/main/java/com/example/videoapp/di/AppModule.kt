@@ -21,7 +21,7 @@ val appModule = module {
     viewModel { VideoListViewModel(get(), get()) }
     viewModel { WatchVideoViewModel(get(), get()) }
 
-    single { (list: List<Video>, videoClickListener: VideoClickListener) ->
+    factory { (list: List<Video>, videoClickListener: VideoClickListener) ->
         VideoAdapter(
             context = get(),
             videoList = list,

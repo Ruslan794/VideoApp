@@ -10,9 +10,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        findNavController(R.id.app_nav_graph).popBackStack()
-    }
 }
