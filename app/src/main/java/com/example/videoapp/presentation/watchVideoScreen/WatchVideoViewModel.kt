@@ -1,16 +1,16 @@
 package com.example.videoapp.presentation.watchVideoScreen
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.domain.models.Video
 import com.example.domain.useCases.GetVideoListUseCase
 import com.example.domain.useCases.ShowSelectedVideoUseCase
-import com.example.videoapp.R
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class WatchVideoViewModel(
@@ -18,9 +18,11 @@ class WatchVideoViewModel(
     private val showSelectedVideoUseCase: ShowSelectedVideoUseCase
 ) : ViewModel() {
 
-    private val _videoList = MutableLiveData<List<Video>>()
-    private val _currentVideo = MutableLiveData<Video>()
-    val currentVideo: LiveData<Video> = _currentVideo
+
+    private val _videoList = MutableStateFlow<List<Video>>(emptyList())
+
+    private val _currentVideo = MutableStateFlow<Video?>(null)
+    val currentVideo: StateFlow<Video?> = _currentVideo.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -31,7 +33,7 @@ class WatchVideoViewModel(
 
 
     fun startCurrentVideo(player: ExoPlayer) {
-        _videoList.value!!.forEach {
+        _videoList.value.forEach {
             player.addMediaItem(MediaItem.fromUri(it.videoSource))
         }
         player.prepare()

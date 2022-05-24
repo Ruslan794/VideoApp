@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.videoapp.R
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ui.StyledPlayerView
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -30,8 +32,10 @@ class WatchVideoFragment : Fragment() {
 
         player.player = exoPlayer
 
-        viewModel.currentVideo.observe(viewLifecycleOwner) {
-            viewModel.startCurrentVideo(exoPlayer)
+        lifecycleScope.launchWhenCreated {
+            viewModel.currentVideo.collectLatest {
+                viewModel.startCurrentVideo(exoPlayer)
+            }
         }
 
         backButton.setOnClickListener {

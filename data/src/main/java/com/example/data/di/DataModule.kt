@@ -17,7 +17,7 @@ val dataModule = module {
     single<VideoRepository> { VideoRepositoryImpl(get(), get(), get()) }
 
 
-    factory<VideoApi> {
+    single<VideoApi> {
         Retrofit.Builder().baseUrl(HttpRoutes.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
