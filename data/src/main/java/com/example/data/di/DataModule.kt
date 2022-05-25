@@ -14,29 +14,39 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
 
-    single<VideoRepository> { VideoRepositoryImpl(get(), get(), get()) }
+    single<VideoRepository> {
 
+        val scope = getKoin().createScope<RepositoryScope>()
 
-    single<VideoApi> {
-        Retrofit.Builder().baseUrl(HttpRoutes.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(VideoApi::class.java)
+        VideoRepositoryImpl(
+            videoApi = scope.get(),
+            mapper = scope.get(),
+            database = scope.get()
+        )
     }
 
-    factory { DataClassMapper() }
+    scope<RepositoryScope> {
 
-    single {
-        Room.databaseBuilder(
-            get(),
-            AppDatabase::class.java,
-            "App.db"
-        ).fallbackToDestructiveMigration()
-            .build()
+        scoped { DataClassMapper() }
+
+        scoped<VideoApi> {
+            Retrofit.Builder().baseUrl(HttpRoutes.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(VideoApi::class.java)
+        }
+
+        scoped {
+            Room.databaseBuilder(
+                get(),
+                AppDatabase::class.java,
+                "App.db"
+            ).fallbackToDestructiveMigration()
+                .build()
+        }
+
+        scoped {
+            AppDatabaseHelper(get())
+        }
     }
-
-    single {
-        AppDatabaseHelper(get())
-    }
-
 }

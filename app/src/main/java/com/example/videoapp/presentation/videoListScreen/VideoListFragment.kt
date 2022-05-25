@@ -65,7 +65,7 @@ class VideoListFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenResumed {
-            delay(10000)
+            delay(30000)
             viewModel.triggerUserInactionBehavior()
         }
 

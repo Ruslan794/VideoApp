@@ -37,7 +37,7 @@ class VideoListViewModel(
     }
 
     fun triggerUserInactionBehavior() = viewModelScope.launch {
-        userBehaviorChannel.send(UserBehaviorEvents.Inaction("You just sit here for about 10 seconds."))
+        userBehaviorChannel.send(UserBehaviorEvents.Inaction("You just sit here for about 30 seconds."))
         userBehaviorChannel.send(UserBehaviorEvents.Inaction("Is it so hard to choose?"))
     }
 
